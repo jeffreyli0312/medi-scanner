@@ -64,11 +64,11 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
     batch_size = batch_size
 )
 
-train_ds = train_ds.cache()
-val_ds = val_ds.cache()
-
 class_names = train_ds.class_names
 print(class_names)
+
+train_ds = train_ds.cache()
+val_ds = val_ds.cache()
 
 # plt.figure(figsize=(10, 10))
 # for images, labels in train_ds.take(1):
@@ -94,13 +94,13 @@ model = tf.keras.Sequential([
 ])
 
 model.compile(
-    optimizeer = 'adam',
-    loss = tf.keras.losses.sparse_categorical_cross_entropy(from_logits = True),
+    optimizer = 'adam',
+    loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
     metrics = (['accuracy'])
 )
 
-# model.fit(
-#     train_ds,
-#     validation_data = val_ds,
-#     epochs = 5
-# )
+model.fit(
+    train_ds,
+    validation_data = val_ds,
+    epochs = 10
+)
