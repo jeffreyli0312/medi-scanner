@@ -84,3 +84,5 @@ print(class_names)
 #     tf.keras.layers.Conv2D(32 , 3 , activation='relu'),
 
 # ])
+
+#;mlkjlhjlk
