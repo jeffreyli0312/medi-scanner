@@ -74,3 +74,13 @@ print(class_names)
 #     plt.imshow(images[i].numpy().astype("uint8"))
 #     plt.title(class_names[labels[i]])
 #     plt.axis("off")
+# plt.show()
+
+# num_classes = 3
+# model = tf.keras.Sequential([
+#     tf.keras.layers.Rescaling(1./255),
+#     tf.keras.layers.Conv2D(32 , 3 , activation='relu'),
+#     tf.keras.layers.MaxPooling2D(),
+#     tf.keras.layers.Conv2D(32 , 3 , activation='relu'),
+
+# ])
