@@ -89,3 +89,15 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(128 , activation='relu'),
     tf.keras.layers.Dense(num_classes)
 ])
+
+model.compile(
+    optimizeer = 'adam',
+    loss = tf.keras.losses.sparse_categorical_cross_entropy(from_logits = True),
+    metrics = (['accuracy'])
+)
+
+model.fit(
+    train_ds,
+    validation_data = val_ds,
+    epochs = 5
+)
