@@ -43,7 +43,7 @@ base_dir = pathlib.Path(base_dir)
 image_count = len(list(base_dir.glob("*/*.png")))
 print(image_count)
 
-batch_size = 16
+batch_size = 32
 img_height , img_width = 180 , 180
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
@@ -64,6 +64,9 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
     batch_size = batch_size
 )
 
+train_ds = train_ds.cache()
+val_ds = val_ds.cache()
+
 class_names = train_ds.class_names
 print(class_names)
 
@@ -76,7 +79,7 @@ print(class_names)
 #     plt.axis("off")
 # plt.show()
 
-num_classes = 3
+num_classes = 4
 model = tf.keras.Sequential([
     tf.keras.layers.Rescaling(1./255),
     tf.keras.layers.Conv2D(32 , 3 , activation='relu'),
@@ -96,8 +99,8 @@ model.compile(
     metrics = (['accuracy'])
 )
 
-model.fit(
-    train_ds,
-    validation_data = val_ds,
-    epochs = 5
-)
+# model.fit(
+#     train_ds,
+#     validation_data = val_ds,
+#     epochs = 5
+# )
