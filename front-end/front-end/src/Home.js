@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const Home = () => {
+  const [blogs, setBlogs] = useState([]);
   //   let scanStatus = "Incomplete";
   const [scanStatus, setScanStatus] = useState("Incomplete");
   const handleClick = () => {
