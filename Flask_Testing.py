@@ -4,6 +4,9 @@ import subprocess
 import tkinter as tk
 from tkinter import filedialog
 
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+
 # from flask import Flask, render_template
 # app = Flask(__name__)
 # @app.route("/", methods=['GET', 'POST'])
@@ -44,22 +47,24 @@ def index():
 def my_link():
     print ('I got clicked!')
 
-    bool = take_picture()
+    (bool, output) = take_picture()
 
 # SHOULD PROBABLY PUT RESULTS HERE ON A NEW PAGE
     if bool:
-        return render_template('about.html')
+        return render_template('about.html', output=output)
     return render_template('home.html')
 
 @app.route('/my-link2/') # UPLOAD IMAGE BUTTON
 def my_link2():
     print ('I got clicked!')
 
-    bool = upload_image()
+    (bool, output) = upload_image()
 
+    # output = execute('./script')
+    # return render_template('template_name.html',output=output)
 
     if bool:
-        return render_template('about_upload.html')
+        return render_template('about_upload.html', output=(output))
     return render_template('home.html') 
 
 @app.route('/my-link3/') #GOT BACK TO HOME BUTTON
@@ -71,6 +76,9 @@ def my_link3():
 # SHOULD PROBABLY PUT RESULTS HERE ON A NEW PAGE
     # return render_template('about.html')
     return render_template('home.html')
+
+
+    
 
 if __name__ == '__main__':
   app.run(debug=True)
