@@ -1,3 +1,5 @@
+import flask
+from flask_cors import CORS
 from Image_Camera_Upload import *
 import cv2
 import subprocess
@@ -34,7 +36,17 @@ from tkinter import filedialog
 #     contact()
 
 from flask import Flask, render_template
+
+
 app = Flask(__name__)
+CORS(app)
+
+@app.route("/")
+def home():
+    resp = flask.Response("Foo bar baz")
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
 
 @app.route('/')
 def index():
@@ -52,7 +64,7 @@ def my_link():
     return render_template('home.html')
 
 @app.route('/my-link2/') # UPLOAD IMAGE BUTTON
-def my_link2():
+def my_link2(formData):
     print ('I got clicked!')
 
     bool = upload_image()
