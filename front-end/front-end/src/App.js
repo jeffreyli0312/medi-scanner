@@ -3,9 +3,8 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import InjuryList from "./InjuryList";
 import axios from "axios";
-
-// eslint-disable-next-line
 import React, { Component } from "react";
+// eslint-disable-next-line
 
 class App extends Component {
   state = {
@@ -54,18 +53,5 @@ class App extends Component {
       </div>
     );
   }
-import React, { Component } from "react";
-
-
-function App() {
-  return (
-    <div className="App">
-      <Navbar />
-      <div className="content">
-        <Home />
-      </div>
-    </div>
-  );
 }
-
 export default App;
