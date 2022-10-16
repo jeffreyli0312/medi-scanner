@@ -136,9 +136,9 @@ def upload_image():
 
 def model_predict (img):
     scanner_model = tf.keras.models.load_model("/medi-scanner/keras_save/burns")
-    pred_img = img.resize((180 , 180))
+    pred_img = img.resize((299 , 299))
     pred_img = np.array(pred_img)/255.0
-    pred_img = pred_img.reshape(1 , 180 , 180 , 3)
+    pred_img = pred_img.reshape(1 , 299 , 299 , 3)
 
     res = scanner_model.predict(pred_img)
     return np.argmax(pred_img)
