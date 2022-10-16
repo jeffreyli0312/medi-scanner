@@ -92,16 +92,18 @@ def take_picture():
                             """
             elif (predicted == 3):
                 # 3rd degree
-                output = """Immediate symptoms
-                        Dark brown and/or waxy and white colour
-                        Char
-                        Undeveloped blisters
-                        Leathery texture 
-                        painful/ numbing
-                        Treatment
-                        Contact emergency services immediately
-                        While waiting, raise the unjust above the heart, ensure no clothing is in contact with the brun
-                        Antibiotics(prevent infection)
+                output = """Third Degree(no set timeline)
+                            Immediate symptoms
+                            Dark brown and/or waxy and white colour
+                            Char
+                            Undeveloped blisters
+                            Leathery texture 
+                            painful/ numbing
+                            Treatment
+                            Contact emergency services immediately
+                            While waiting, raise the unjust above the heart, ensure no clothing is in contact with the brun
+                            Antibiotics(prevent infection)
+
                         """
 
             # 0- first degree
