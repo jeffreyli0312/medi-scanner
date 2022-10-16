@@ -64,7 +64,7 @@ def my_link():
     return render_template('home.html')
 
 @app.route('/my-link2/') # UPLOAD IMAGE BUTTON
-def my_link2(formData):
+def my_link2():
     print ('I got clicked!')
 
     (bool, output) = upload_image()
