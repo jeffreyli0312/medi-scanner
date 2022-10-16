@@ -1,18 +1,26 @@
 import { useState } from "react";
+import InjuryList from "./InjuryList";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([]);
-  //   let scanStatus = "Incomplete";
-  const [scanStatus, setScanStatus] = useState("Incomplete");
-  const handleClick = () => {
-    setScanStatus("Complete");
-  };
+  const [injury, setinjury] = useState([
+    {
+      title: "Skin Burn",
+      body: "lorem ipsum...",
+      author: "Medi-Scanner",
+      id: 1,
+    },
+    { title: "Bruises", body: "lorem ipsum...", author: "Medi-Scanner", id: 2 },
+    {
+      title: "Cuts",
+      body: "lorem ipsum...",
+      author: "Medi-Scanner",
+      id: 3,
+    },
+  ]);
 
   return (
     <div className="home">
-      <h2>Homepage</h2>
-      <p>{scanStatus}</p>
-      <button onClick={handleClick}>Click Here</button>
+      <InjuryList injury={injury} title="All Injuries " />
     </div>
   );
 };
