@@ -73,7 +73,6 @@ img_height , img_width = 180 , 180
 
 # model.save("/medi-scanner/keras_save/burns")
 
-
 tr_image_data_gen = tf.keras.preprocessing.image.ImageDataGenerator(
     rescale = 1./255,
     rotation_range = 45,
@@ -107,38 +106,61 @@ val_data_gen = val_image_data_gen.flow_from_directory(
     subset = 'validation'
 )
 
-num_classes = 4
+# num_classes = 4
+# model = tf.keras.Sequential([
+#     tf.keras.layers.Conv2D(32 , 3 , activation= 'relu' , input_shape= (img_height, img_width , 3)),
+#     tf.keras.layers.MaxPooling2D(2, 2),
+
+#     tf.keras.layers.Conv2D(64 , 3 , activation='relu'),
+#     tf.keras.layers.MaxPooling2D(2 , 2),
+
+#     tf.keras.layers.Conv2D(64 , 3 , activation='relu'),
+#     tf.keras.layers.MaxPooling2D(2 , 2),
+
+#     tf.keras.layers.Conv2D(128 , 3 , activation='relu'),
+#     tf.keras.layers.MaxPooling2D(2 , 2),
+
+#     tf.keras.layers.Flatten(),
+#     tf.keras.layers.Dense(512 , activation='relu'),
+#     tf.keras.layers.Dropout(0.5),
+#     tf.keras.layers.Dense(num_classes)
+# ])
+
+# model.compile(
+#     optimizer = 'adam',
+#     loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
+#     metrics = ['accuracy']
+# )
+
+# model.fit_generator(
+#     tr_data_gen,
+#     epochs = 25,
+#     steps_per_epoch = 35,
+#     validation_data = val_data_gen,
+#     validation_steps = 5,
+# )
+
+model_url = "https://tfhub.dev/google/tf2-preview/inception_v3/feature_vector/4"
+
 model = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32 , 3 , activation= 'relu' , input_shape= (img_height, img_width , 3)),
-    tf.keras.layers.MaxPooling2D(2, 2),
-
-    tf.keras.layers.Conv2D(64 , 3 , activation='relu'),
-    tf.keras.layers.MaxPooling2D(2 , 2),
-
-    tf.keras.layers.Conv2D(64 , 3 , activation='relu'),
-    tf.keras.layers.MaxPooling2D(2 , 2),
-
-    tf.keras.layers.Conv2D(128 , 3 , activation='relu'),
-    tf.keras.layers.MaxPooling2D(2 , 2),
-
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(512 , activation='relu'),
-    tf.keras.layers.Dropout(0.5),
-    tf.keras.layers.Dense(num_classes)
+    hub.KerasLayer(model_url , input_shape = (299 , 299 , 3) , trainable = False),
+    tf.keras.layers.Dense(32 , activation = 'relu'), 
+    tf.keras.layers.Dense(4 , activation = 'softmax')
 ])
 
 model.compile(
     optimizer = 'adam',
-    loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
+    loss = 'sparse_categorical_crossentropy',
     metrics = ['accuracy']
 )
 
-model.fit_generator(
+EPOCHS = 13
+history = model.fit(
     tr_data_gen,
-    epochs = 25,
+    epochs = EPOCHS,
     steps_per_epoch = 35,
     validation_data = val_data_gen,
-    validation_steps = 5,
+    validation_steps = 9
 )
 
 model.save("/medi-scanner/keras_save/burns")
