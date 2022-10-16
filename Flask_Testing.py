@@ -46,10 +46,7 @@ CORS(app)
 
 @app.route("/")
 def home():
-    resp = flask.Response("Foo bar baz")
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
-
+  return render_template('home.html')
 
 @app.route('/')
 def index():
