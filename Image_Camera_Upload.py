@@ -8,6 +8,11 @@ from tkinter import ttk
 from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 
+import tensorflow as tf
+import PIL
+import PIL.Image
+import numpy as np
+
 def take_picture():
     # print ("it works")
 
@@ -128,6 +133,15 @@ def upload_image():
         chose = False
 
     return chose # RETURN TRUE OR FALSE BASED ON IF UDER CHOSE AN IMAGE OR NOT
+
+def model_predict (img):
+    scanner_model = tf.keras.models.load_model("/medi-scanner/keras_save/burns")
+    pred_img = img.resize((299 , 299))
+    pred_img = np.array(pred_img)/255.0
+    pred_img = pred_img.reshape(1 , 299 , 299 , 3)
+
+    res = scanner_model.predict(pred_img)
+    return np.argmax(pred_img)
 
 
 def main():
