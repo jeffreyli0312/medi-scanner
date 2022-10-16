@@ -29,7 +29,7 @@ def check_images( s_dir, ext_list):
             print ('*** WARNING*** you have files in ', s_dir, ' it should only contain sub directories')
     return bad_images, bad_ext
 
-source_dir =r'c:/medi-scanner/dataset/'
+source_dir =r'C:/medi-scanner/testimages'
 good_exts=['jpg', 'png', 'jpeg', 'gif', 'bmp' ] # list of acceptable extensions
 bad_file_list, bad_ext_list=check_images(source_dir, good_exts)
 if len(bad_file_list) !=0:

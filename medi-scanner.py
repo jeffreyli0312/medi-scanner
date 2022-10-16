@@ -4,23 +4,12 @@ import numpy as np
 import os
 import PIL
 import PIL.Image
-import pathlib
-
 import matplotlib.pyplot as plt
-import cv2
-import logging
-logger = tf.get_logger()
-logger.setLevel(logging.ERROR)
-
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 base_dir = os.path.dirname("C:\medi-scanner\dataset")
 base_dir = os.path.join(base_dir , "dataset")
-
-base_dir = pathlib.Path(base_dir)
-image_count = len(list(base_dir.glob("*/*.png")))
-print(image_count)
 
 batch_size = 32
 img_height , img_width = 180 , 180
@@ -143,11 +132,21 @@ model.compile(
     loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
     metrics = (['accuracy'])
 )
-epochs = 18
+epochs = 12
 history = model.fit(
     train_ds,
     validation_data = val_ds,
     epochs = epochs
 )
 
-# model.save("/medi-scanner/keras_save/burns")
+model.save("/medi-scanner/keras_save/burns")
+
+medi_scanner_model = tf.keras.models.load_model("/medi-scanner/keras_save/burns")
+test_image = PIL.Image.open("C:/medi-scanner/testimages/test-image (1).png").resize((img_height , img_width))
+test_image = np.array(test_image)/255.0
+print(test_image.shape)
+prediction = medi_scanner_model.predict(test_image)
+prediction.shape
+
+predicted_class = np.argmax(prediction[0] , axis=1)
+print(predicted_class)
