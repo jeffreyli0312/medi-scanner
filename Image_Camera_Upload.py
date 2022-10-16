@@ -74,6 +74,7 @@ def upload_image():
     root.title('Tkinter Open File Dialog')
     root.resizable(False, False)
     root.geometry('300x150')
+    root.withdraw()
 
 
     # filetypes = (

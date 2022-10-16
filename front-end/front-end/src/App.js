@@ -4,6 +4,7 @@ import Home from "./Home";
 import InjuryList from "./InjuryList";
 import axios from "axios";
 import React, { Component } from "react";
+import ImageUploading from "react-images-uploading";
 // eslint-disable-next-line
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
       this.state.selectedFile.className
     );
     axios
-      .post("", fd, {
+      .post("http://127.0.0.1:5000/my-link2/", fd, {
         onUploadProgress: (progressEvent) =>
           console.log(
             "Upload Progress: " +
