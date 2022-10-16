@@ -1,4 +1,5 @@
 import tensorflow as tf
+import tensorflow_hub as hub
 import numpy as np
 import os
 import PIL
@@ -21,8 +22,11 @@ base_dir = pathlib.Path(base_dir)
 image_count = len(list(base_dir.glob("*/*.png")))
 print(image_count)
 
-batch_size = 75
+batch_size = 32
 img_height , img_width = 180 , 180
+
+# CLASSIFIER_URL = "https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/5"
+# IMAGE_RES = 224
 
 # def plotImages(images_arr):
 #     fig, axes = plt.subplots(1, 5, figsize=(20,20))
@@ -62,9 +66,10 @@ img_height , img_width = 180 , 180
 #     subset = 'validation',
 #     class_mode = 'sparse'
 # )
+
 train_ds = tf.keras.utils.image_dataset_from_directory(
     base_dir,
-    validation_split = 0.3,
+    validation_split = 0.2,
     subset = "training",
     seed = 123,
     image_size = (img_height , img_width),
@@ -94,6 +99,23 @@ val_ds = val_ds.cache()
 #     plt.title(class_names[labels[i]])
 #     plt.axis("off")
 # plt.show()
+
+# model = tf.keras.Sequential([
+#     hub.KerasLayer(CLASSIFIER_URL , input_shape=(IMAGE_RES , IMAGE_RES , 3)),
+#     tf.keras.layers.Dense(4, activation= 'softmax')
+# ])
+
+# model.compile(
+#     optimizer='adam',
+#     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+#     metrics=['accuracy']
+# )
+
+# history = model.fit(
+#     train_ds,
+#     epochs=21,
+#     validation_data=val_ds
+# )
 
 num_classes = 4
 model = tf.keras.Sequential([
@@ -128,4 +150,4 @@ history = model.fit(
     epochs = epochs
 )
 
-model.save("/medi-scanner/keras_save/burns")
+# model.save("/medi-scanner/keras_save/burns")
