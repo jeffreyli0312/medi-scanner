@@ -52,7 +52,7 @@ def home():
 def index():
   return render_template('home.html')
 
-@app.route('/my-link/') # TAKE PICTURE BUTTON
+@app.route('/my-link/')  # TAKE PICTURE BUTTON
 def my_link():
     print ('I got clicked!')
 
